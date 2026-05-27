@@ -1,0 +1,7 @@
+pyTelegramBotAPI
+groq
+python-dotenv
+openai-whisper
+pydub
+ffmpeg-python
+requests
