@@ -2,6 +2,7 @@ pyTelegramBotAPI
 groq
 python-dotenv
 openai-whisper
+torch
 pydub
 ffmpeg-python
 requests
