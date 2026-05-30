@@ -40,9 +40,9 @@ Key Features
 📱 Telegram-Native Accessibility
 💙 Human-Centered Design
 
-______________________________________________________________________________________________________________
-
 The conversational tone was carefully engineered to feel calm, emotionally steady, and non-judgmental rather than robotic or overly clinical.
+
+______________________________________________________________________________________________________________
 
 Technologies Used
 
@@ -50,7 +50,7 @@ Programming Language: Python
 Backend & Bot Framework: PyTelegramBotAPI
 AI & Machine Learning: 
     Groq API
-    Qwen 32B language model
+    llama-3.3-70b-versatile language model
     Whisper speech-to-text model
 Architecture:
     Modular service-based architecture
