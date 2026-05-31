@@ -6,3 +6,4 @@ torch
 pydub
 ffmpeg-python
 requests
+pyodbc

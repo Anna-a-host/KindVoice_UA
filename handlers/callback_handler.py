@@ -1,5 +1,6 @@
 from data.user_profiles import user_profiles
 from keyboards.state_keyboard import get_state_keyboard
+from database.user_repository import *
 
 def setup_callback_handler(bot):
 
@@ -8,6 +9,7 @@ def setup_callback_handler(bot):
 
         chat_id = call.message.chat.id
         lang = call.data
+        update_language(chat_id, lang)
 
         if chat_id not in user_profiles:
             user_profiles[chat_id] = {}
@@ -45,6 +47,7 @@ def setup_callback_handler(bot):
 
         chat_id = call.message.chat.id
         mode = call.data
+        update_mode(chat_id, lang)
 
         if chat_id not in user_profiles:
             user_profiles[chat_id] = {

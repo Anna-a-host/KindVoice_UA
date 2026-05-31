@@ -2,6 +2,7 @@ from data.user_profiles import user_profiles
 from services.ai_service import generate_response
 
 from time import sleep
+from database.user_repository import *
 
 
 def setup_text_handler(bot):
@@ -40,6 +41,7 @@ def setup_text_handler(bot):
             )
 
             bot.send_message(chat_id, response)
+            increase_message_count(chat_id)
 
             history.append({
                 "role": "assistant",
