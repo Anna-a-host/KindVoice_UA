@@ -1,9 +1,9 @@
 pyTelegramBotAPI
 groq
+google-genai
 python-dotenv
 openai-whisper
 torch
 pydub
 ffmpeg-python
 requests
-pyodbc
