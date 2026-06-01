@@ -1,11 +1,9 @@
-import pyodbc
+import sqlite3
+
 
 def get_connection():
-    return pyodbc.connect(
-        "Driver={ODBC Driver 17 for SQL Server};"
-        "Server=WIN-T3JTU441UE1\\SQLEXPRESS;"
-        "Database=EPILAND_database;"
-        "Trusted_Connection=yes;"
-        "Encrypt=yes;"
-        "TrustServerCertificate=yes;"
-    )
+
+    conn = sqlite3.connect("kindvoice.db")
+    conn.row_factory = sqlite3.Row
+
+    return conn

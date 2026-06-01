@@ -13,7 +13,7 @@ def print_all_users():
             mode,
             joined_at,
             message_count
-        FROM Users
+        FROM users
         ORDER BY joined_at DESC
     """)
 
@@ -25,16 +25,14 @@ def print_all_users():
 
     for user in users:
 
-        print(
-            f"""
-User ID: {user.chat_id}
-Language: {user.language}
-Mode: {user.mode}
-Messages: {user.message_count}
-Joined: {user.joined_at}
+        print(f"""
+User ID: {user[0]}
+Language: {user[1]}
+Mode: {user[2]}
+Messages: {user[4]}
+Joined: {user[3]}
 {'-' * 80}
-"""
-        )
+""")
 
     conn.close()
 
@@ -46,12 +44,12 @@ def print_total_users():
 
     cursor.execute("""
         SELECT COUNT(*)
-        FROM Users
+        FROM users
     """)
 
     total = cursor.fetchone()[0]
 
-    print("\nTOTAL USERS:", total)
+    print(f"\nTOTAL USERS: {total}")
 
     conn.close()
 
@@ -65,7 +63,7 @@ def print_popular_modes():
         SELECT
             mode,
             COUNT(*) as amount
-        FROM Users
+        FROM users
         GROUP BY mode
         ORDER BY amount DESC
     """)
@@ -73,15 +71,13 @@ def print_popular_modes():
     rows = cursor.fetchall()
 
     print("\nMOST POPULAR MODES")
+    print("-" * 40)
 
     for row in rows:
 
-        print(
-            f"{row.mode}: {row.amount}"
-        )
+        print(f"{row[0]}: {row[1]}")
 
     conn.close()
-
 
 
 def print_top_users():
@@ -90,21 +86,23 @@ def print_top_users():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT TOP 10
+        SELECT
             chat_id,
             message_count
-        FROM Users
+        FROM users
         ORDER BY message_count DESC
+        LIMIT 10
     """)
 
     users = cursor.fetchall()
 
     print("\nTOP USERS")
+    print("-" * 40)
 
     for user in users:
 
         print(
-            f"User {user.chat_id} -> {user.message_count} messages"
+            f"User {user[0]} -> {user[1]} messages"
         )
 
     conn.close()
@@ -120,15 +118,20 @@ def print_dashboard():
     print("KINDVOICEUA ANALYTICS DASHBOARD")
     print("=" * 80)
 
-    cursor.execute("SELECT COUNT(*) FROM Users")
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM users
+    """)
+
     total_users = cursor.fetchone()[0]
 
     cursor.execute("""
         SELECT SUM(message_count)
-        FROM Users
+        FROM users
     """)
 
-    total_messages = cursor.fetchone()[0] or 0
+    result = cursor.fetchone()
+    total_messages = result[0] if result[0] else 0
 
     print(f"Total users: {total_users}")
     print(f"Total messages: {total_messages}")

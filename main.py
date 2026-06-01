@@ -10,6 +10,7 @@ from handlers.voice_handler import setup_voice_handler
 from time import sleep
 from database.user_repository import add_user
 from database.statistics import *
+from database.init_db import create_tables
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
@@ -46,5 +47,6 @@ setup_text_handler(bot)
 setup_callback_handler(bot)
 setup_voice_handler(bot)
 
+create_tables()
 print("Bot is running...")
 bot.infinity_polling()
