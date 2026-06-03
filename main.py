@@ -49,4 +49,15 @@ setup_voice_handler(bot)
 
 create_tables()
 print("Bot is running...")
-bot.infinity_polling()
+
+import time
+
+while True:
+    try:
+        bot.infinity_polling(
+            timeout=60,
+            long_polling_timeout=30
+        )
+    except Exception as e:
+        print(f"Polling error: {e}")
+        time.sleep(5)
