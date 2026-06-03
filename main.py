@@ -13,7 +13,6 @@ from database.statistics import *
 from database.init_db import create_tables
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
-bot.remove_webhook()
 
 @bot.message_handler(commands=['start', 'reset'])
 def start(message):
