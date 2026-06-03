@@ -1,3 +1,13 @@
+---
+title: KindVoiceUA
+emoji: 🤖
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+---
+
+
 ## Problem Statement
 
 Millions of Ukrainians experience stress, panic, isolation, and emotional exhaustion caused by war, displacement, uncertainty, and constant exposure to danger. While professional psychological support is important, it is often inaccessible, expensive, unavailable at night, or difficult to reach during crisis situations.
