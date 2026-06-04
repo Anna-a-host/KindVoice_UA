@@ -7,9 +7,10 @@ def add_user(chat_id):
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT OR IGNORE INTO users (chat_id)
-        VALUES (?)
-    """, (chat_id,))
+    INSERT INTO users (chat_id)
+    VALUES (%s)
+    ON CONFLICT (chat_id) DO NOTHING
+""", (chat_id,))
 
     conn.commit()
     conn.close()
@@ -22,8 +23,8 @@ def update_language(chat_id, language):
 
     cursor.execute("""
         UPDATE users
-        SET language = ?
-        WHERE chat_id = ?
+        SET language = %s
+        WHERE chat_id = %s
     """, (language, chat_id))
 
     conn.commit()
@@ -37,8 +38,8 @@ def update_mode(chat_id, mode):
 
     cursor.execute("""
         UPDATE users
-        SET mode = ?
-        WHERE chat_id = ?
+        SET mode = %s
+        WHERE chat_id = %s
     """, (mode, chat_id))
 
     conn.commit()
@@ -53,7 +54,7 @@ def increase_message_count(chat_id):
     cursor.execute("""
         UPDATE users
         SET message_count = message_count + 1
-        WHERE chat_id = ?
+        WHERE chat_id = %s
     """, (chat_id,))
 
     conn.commit()

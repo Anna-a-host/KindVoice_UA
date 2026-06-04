@@ -1,9 +1,9 @@
-import sqlite3
-
+import psycopg2
+from psycopg2.extras import RealDictCursor
+from config import DATABASE_URL
 
 def get_connection():
-
-    conn = sqlite3.connect("kindvoice.db")
-    conn.row_factory = sqlite3.Row
-
-    return conn
+    return psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )

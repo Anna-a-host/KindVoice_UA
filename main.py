@@ -12,6 +12,21 @@ from database.user_repository import add_user
 from database.statistics import *
 from database.init_db import create_tables
 
+import os
+from threading import Thread
+from flask import Flask
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is alive and running!"
+
+def run_web_server():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 @bot.message_handler(commands=['start', 'reset'])
@@ -36,6 +51,9 @@ def stats(message):
     
     print_dashboard()
     print_all_users()
+    print_total_users()
+    print_popular_modes()
+    print_top_users()
 
     bot.send_message(
         message.chat.id,
@@ -48,6 +66,8 @@ setup_callback_handler(bot)
 setup_voice_handler(bot)
 
 create_tables()
+
+Thread(target=run_web_server).start()
 print("Bot is running...")
 
 import time

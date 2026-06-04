@@ -7,9 +7,9 @@ def create_tables():
     cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
+        CREATE TABLE IF NOT EXISTS users (
 
-        chat_id INTEGER PRIMARY KEY,
+        chat_id BIGINT PRIMARY KEY,
 
         language TEXT DEFAULT 'uk',
 
@@ -18,6 +18,7 @@ def create_tables():
         joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
         message_count INTEGER DEFAULT 0
+    
     )
     """)
 
