@@ -47,16 +47,18 @@ def setup_callback_handler(bot):
 
         chat_id = call.message.chat.id
         mode = call.data
-        update_mode(chat_id, lang)
 
         if chat_id not in user_profiles:
             user_profiles[chat_id] = {
                 "lang": "en"
             }
 
-        user_profiles[chat_id]["mode"] = mode
-
         lang = user_profiles[chat_id]["lang"]
+
+        update_mode(chat_id, mode)
+
+        user_profiles[chat_id]["mode"] = mode
+        
 
         confirm_text = (
             "I’m here 💙 Tell me what’s going on."
