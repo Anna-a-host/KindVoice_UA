@@ -13,81 +13,85 @@ ________________________________________________________________________________
 
 KindVoice UA is an AI-powered Telegram bot designed to provide emotionally adaptive conversations for users experiencing stress, panic, wartime anxiety, loneliness, or emotional overwhelm.
 
-The bot uses multiple AI providers with automatic failover to ensure reliability and uninterrupted availability. Conversations are generated using Gemini as the primary AI provider, with OpenRouter and Groq serving as fallback providers when needed.
+The bot uses multiple AI providers with automatic failover to improve reliability and availability. Conversations are generated using Gemini as the primary AI provider, with OpenRouter and Groq serving as fallback providers when needed.
 
 Users can interact through both text and voice messages in Ukrainian or English.
 
 The system dynamically adapts its conversational behavior depending on the emotional mode selected by the user, such as:
 
-* panic support
-* anxiety support
-* wartime situations
-* emotional grounding
-* calm conversation
-* support for internally displaced people (IDPs)
+panic support
+anxiety support
+wartime situations
+emotional grounding
+calm conversation
+support for internally displaced people (IDPs)
 
-Voice messages are transcribed using Whisper speech recognition before being processed by the AI system.
+Voice messages are processed using Groq's Whisper speech-to-text model before being passed to the AI conversation pipeline.
 
-To improve realism and reduce repetitive or inappropriate responses, the bot maintains lightweight rolling conversation memory that preserves recent context while remaining computationally efficient for deployment.
+To improve realism and reduce repetitive or irrelevant responses, the bot maintains lightweight rolling conversation memory that preserves recent context while remaining efficient for deployment.
 
-The project also includes a local SQLite database for user management and usage analytics, allowing future expansion toward personalized support experiences.
+The project includes a PostgreSQL database hosted on Neon for persistent user management and analytics. 
 
+The bot is deployed using webhook-based architecture, allowing continuous operation without requiring a local machine to stay online.
 ______________________________________________________________________________________________________________
 
 ## Key Features
 
-💬 Emotionally Adaptive Conversations
-🇺🇦 Multilingual Support (Ukrainian & English)
-🎤 Voice Message Support
-🧠 Contextual Memory
-🔄 Multi-Provider AI Reliability
-⚡ Fast AI Inference
-📱 Telegram-Native Accessibility
-📊 User Analytics & Statistics
-💙 Human-Centered Design
-
-The conversational tone was carefully engineered to feel calm, emotionally steady, and non-judgmental rather than robotic or overly clinical.
+Emotionally Adaptive Conversations
+Multilingual Support (Ukrainian & English)
+Voice Message Transcription
+Contextual Memory
+Multi-Provider AI Reliability
+Telegram Accessibility in Ukraine
+Persistent PostgreSQL User Database
+Webhook-Based Deployment
+Human-Centered Design
 
 ______________________________________________________________________________________________________________
 
 ## Technologies Used
 
-**Programming Language:** Python
+**Programming Language:**
+
+Python
 
 **Backend & Bot Framework:**
 
-* PyTelegramBotAPI
+PyTelegramBotAPI
 
 **AI & Machine Learning:**
 
-* Google Gemini API (Primary AI Provider)
-* OpenRouter API (Fallback Provider)
-* Groq API (Fallback Provider)
-* Gemini 2.5 Flash
-* DeepSeek Chat V3
-* Llama 3.3 70B Versatile
-* OpenAI Whisper Speech-to-Text
+Google Gemini API (Primary AI Provider)
+OpenRouter API (Fallback Provider)
+Groq API (Fallback Provider)
+
+**AI Models used:**
+
+Gemini 2.5 Flash
+DeepSeek Chat V3
+Llama 3.3 70B Versatile
+Whisper Large V3 Speech-to-Text
 
 **Database:**
 
-* SQLite
+PostgreSQL (Neon Serverless PostgreSQL)
 
 **Architecture:**
 
-* Modular service-based architecture
-* Multi-provider AI routing
-* Automatic failover system
-* Prompt routing system
-* Contextual memory handling
-* Mode-based conversational design
+Modular service-based architecture
+Multi-provider AI routing
+Automatic failover system
+Prompt routing system
+Contextual memory handling
+Mode-based conversational design
+Webhook-based Telegram bot architecture
 
-**Additional Tools:**
+**Deployment & Tools:**
 
-* GitHub
-* VS Code
-* FFmpeg
-* Hugging Face (Deployment)
-
+Render (Deployment)
+GitHub (Pushed code)
+VS Code (Local project)
+PostgreSQL (Neon Database)
 
 ______________________________________________________________________________________________________________
 
@@ -99,6 +103,15 @@ Ukrainians experiencing wartime stress or anxiety
 Internally displaced people (IDPs)
 Teenagers and young adults seeking emotional support
 Individuals experiencing panic or loneliness
-Users needing calm conversational grounding during crisis situations
+Users needing calm conversational grounding during difficult situations
 
-The project especially focuses on accessibility, simplicity, and emotional comfort for users who may not have immediate access to professional support systems.
+The project focuses on accessibility, reliability, privacy-conscious data handling, and emotional comfort for users who may not have immediate access to professional support systems.
+
+______________________________________________________________________________________________________________
+
+
+## Inspiration
+
+My project was deeply inspired by the desire to help people living in Ukraine who unfortunately have to cope with panic, fear, stress, and emotional exhaustion on a regular basis because of the war. Being Ukrainian myself, I realise how desperate the need for emotional support can be when experiencing an attack. While KindVoiceUA is not intended to replace professional psychological support, I believe it can become a small source of comfort and emotional grounding for people during difficult moments.
+
+I wanted to create something accessible, human, and supportive — a space where people could feel heard even when they feel alone. I also strongly believe that even if this project helps just one Ukrainian feel calmer, safer, or less isolated, then it is already meaningful.
