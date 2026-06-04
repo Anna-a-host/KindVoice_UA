@@ -13,8 +13,7 @@ from database.statistics import *
 from database.init_db import create_tables
 
 import os
-from threading import Thread
-from flask import Flask
+from flask import Flask, request
 
 app = Flask('')
 
@@ -22,10 +21,15 @@ app = Flask('')
 def home():
     return "Bot is alive and running!"
 
-def run_web_server():
-    port = int(os.environ.get("PORT", 10000)) 
-    app.run(host='0.0.0.0', port=port)
-
+@app.route(f'/{TELEGRAM_TOKEN}', methods=['POST'])
+def receive_update():
+    if request.headers.get('content-type') == 'application/json':
+        json_string = request.stream.read().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return '', 200
+    else:
+        return 'Invalid request', 403
 
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
@@ -61,24 +65,19 @@ def stats(message):
         "Statistics printed in console."
     )
 
-
 setup_text_handler(bot)
 setup_callback_handler(bot)
 setup_voice_handler(bot)
 
 create_tables()
 
-Thread(target=run_web_server).start()
-print("Bot is running...")
-
-import time
-
-while True:
-    try:
-        bot.infinity_polling(
-            timeout=60,
-            long_polling_timeout=30
-        )
-    except Exception as e:
-        print(f"Polling error: {e}")
-        time.sleep(5)
+if __name__ == "__main__":
+    bot.remove_webhook()
+    RENDER_URL = os.environ.get("RENDER_EXTERNAL_URL")
+    
+    webhook_url = f"{RENDER_URL}/{TELEGRAM_TOKEN}"
+    bot.set_webhook(url=webhook_url)
+    print(f"Webhook successfully set to: {webhook_url}")
+    
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
