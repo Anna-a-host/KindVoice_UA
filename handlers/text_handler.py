@@ -44,6 +44,7 @@ def setup_text_handler(bot):
             history = history[-8:]
 
             response = generate_response(
+                message.text,
                 lang=lang,
                 mode=mode,
                 history=history
