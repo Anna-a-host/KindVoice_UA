@@ -1,117 +1,82 @@
+# KindVoice UA 💙💛
+
 ## Problem Statement
+Millions of Ukrainians experience stress, panic, isolation, and emotional exhaustion caused by war, displacement, uncertainty, and constant exposure to danger. While professional psychological support is crucial, it is often inaccessible, expensive, unavailable at night, or difficult to reach during sudden crisis situations.
 
-Millions of Ukrainians experience stress, panic, isolation, and emotional exhaustion caused by war, displacement, uncertainty, and constant exposure to danger. While professional psychological support is important, it is often inaccessible, expensive, unavailable at night, or difficult to reach during crisis situations.
+At the same time, many individuals simply need a calm, human-like presence, emotional grounding, and a safe space to talk in moments of intense fear or loneliness.
 
-At the same time, many people simply need calm human-like presence, emotional grounding, and someone to talk to in moments of fear or loneliness.
+**KindVoice UA** was created to address this issue by providing accessible, multilingual, emotionally supportive AI conversations directly inside **Telegram** — a platform already integrated into the daily lives of millions of Ukrainians. 
 
-KindVoice UA was created to address this issue by providing accessible, multilingual, emotionally supportive AI conversations directly inside Telegram — a platform already widely used by Ukrainians daily.
+*Remember: This project does not aim to replace professional therapy, but rather to offer immediate emotional support, calming communication, and grounding interaction during acute stress situations.*
 
-The project focuses not on replacing therapy, but on offering immediate emotional support, calming communication, and safe conversational interaction during stressful situations.
-______________________________________________________________________________________________________________
+---
 
 ## Solution Overview
 
-KindVoice UA is an AI-powered Telegram bot designed to provide emotionally adaptive conversations for users experiencing stress, panic, wartime anxiety, loneliness, or emotional overwhelm.
+**KindVoice UA** is an AI-powered Telegram companion designed to provide emotionally adaptive conversations for users experiencing trauma, wartime anxiety, and emotional overwhelm. 
 
-The bot uses multiple AI providers with automatic failover to improve reliability and availability. Conversations are generated using Gemini as the primary AI provider, with OpenRouter and Groq serving as fallback providers when needed.
+### Key Architectural Solutions:
+* **Multi-Provider AI Resilience:** To maximize uptime and cost-efficiency on a free tier, the backend features a robust **automatic failover system**. It prioritizes **Gemini** as the primary provider and dynamically routes traffic to **OpenRouter** or **Groq** if API quotas are exceeded or connections drop.
 
-Users can interact through both text and voice messages in Ukrainian or English.
+* **Multimodal Webhook Delivery:** Users can interact seamlessly via both text and voice. 
 
-The system dynamically adapts its conversational behavior depending on the emotional mode selected by the user, such as:
+* **Dynamic Contextual Memory:** The bot maintains a lightweight, rolling 8-message conversation memory, preserving recent user context while strictly protecting performance limits.
 
-panic support
-anxiety support
-wartime situations
-emotional grounding
-calm conversation
-support for internally displaced people (IDPs)
+* **Data storage:** Integrates a serverless **PostgreSQL (Neon)** database to handle user states and anonymously track support engagement metrics.
 
-Voice messages are processed using Groq's Whisper speech-to-text model before being passed to the AI conversation pipeline.
+* **Webhook Deployment:** Implements a modern webhook-based architecture hosted on **Render**, eliminating the latency and resource drain of traditional polling frameworks.
 
-To improve realism and reduce repetitive or irrelevant responses, the bot maintains lightweight rolling conversation memory that preserves recent context while remaining efficient for deployment.
+---
 
-The project includes a PostgreSQL database hosted on Neon for persistent user management and analytics. 
+## Emotional Adaptation Modes
 
-The bot is deployed using webhook-based architecture, allowing continuous operation without requiring a local machine to stay online.
-______________________________________________________________________________________________________________
+The system dynamically adapts its conversational behavior, empathy levels, and response formatting based on the specific emotional mode selected by the user:
 
-## Key Features
+* **Panic Support** (Acute crisis intervention)
+* **Wartime Situations** (Direct coping mechanisms for ongoing danger)
+* **Anxiety Support** (Stress reduction and breathing cues)
+* **Emotional Grounding** (Somatic and environmental awareness)
+* **Calm Conversation** (Casual, distracting, friendly dialog)
+* **Support for IDPs** (Targeted empathy for internally displaced people)
 
-Emotionally Adaptive Conversations
-Multilingual Support (Ukrainian & English)
-Voice Message Transcription
-Contextual Memory
-Multi-Provider AI Reliability
-Telegram Accessibility in Ukraine
-Persistent PostgreSQL User Database
-Webhook-Based Deployment
-Human-Centered Design
-
-______________________________________________________________________________________________________________
+---
 
 ## Technologies Used
 
-**Programming Language:**
+* **Programming Language:** Python 
+* **Backend & Bot Framework:** PyTelegramBotAPI, Flask (Webhook Handler)
+* **Databases:** PostgreSQL (Hosted via Neon Serverless Postgres)
+* **Cloud AI Providers:** 
+  * Google Gemini API (Primary Engine)
+  * OpenRouter API (Secondary Fallback)
+  * Groq Cloud API (Tertiary Fallback & Audio Transcriptions)
+* **AI Models Integrated:**
+  * `gemini-2.5-flash`
+  * `deepseek/deepseek-chat-v3-0324` (via OpenRouter)
+  * `llama-3.3-70b-versatile` (via Groq)
+  * `whisper-large-v3` (via Groq Audio API)
+* **Deployment & Environments:** Render, Git/GitHub, VS Code
 
-Python
-
-**Backend & Bot Framework:**
-
-PyTelegramBotAPI
-
-**AI & Machine Learning:**
-
-Google Gemini API (Primary AI Provider)
-OpenRouter API (Fallback Provider)
-Groq API (Fallback Provider)
-
-**AI Models used:**
-
-Gemini 2.5 Flash
-DeepSeek Chat V3
-Llama 3.3 70B Versatile
-Whisper Large V3 Speech-to-Text
-
-**Database:**
-
-PostgreSQL (Neon Serverless PostgreSQL)
-
-**Architecture:**
-
-Modular service-based architecture
-Multi-provider AI routing
-Automatic failover system
-Prompt routing system
-Contextual memory handling
-Mode-based conversational design
-Webhook-based Telegram bot architecture
-
-**Deployment & Tools:**
-
-Render (Deployment)
-GitHub (Pushed code)
-VS Code (Local project)
-PostgreSQL (Neon Database)
-
-______________________________________________________________________________________________________________
+---
 
 ## Target Users
+KindVoice UA is built with safety, privacy, and accessibility in mind for:
+1. Ukrainians coping with chronic wartime stress, rocket attacks, or anxiety.
+2. Internally Displaced Persons (IDPs) navigating relocation and isolation.
+3. Teenagers and young adults looking for an anonymous, non-judgmental space to express difficult feelings.
+4. Individuals needing rapid, localized mental grounding techniques when professional care is unavailable.
 
-KindVoice UA is designed primarily for:
-
-Ukrainians experiencing wartime stress or anxiety
-Internally displaced people (IDPs)
-Teenagers and young adults seeking emotional support
-Individuals experiencing panic or loneliness
-Users needing calm conversational grounding during difficult situations
-
-The project focuses on accessibility, reliability, privacy-conscious data handling, and emotional comfort for users who may not have immediate access to professional support systems.
-
-______________________________________________________________________________________________________________
-
+---
 
 ## Inspiration
+My project was deeply inspired by the desire to help people living in Ukraine who unfortunately have to cope with panic, fear, stress, and emotional exhaustion on a regular basis because of the war. Being Ukrainian myself, I realize how desperate the need for emotional support can be when experiencing an attack. While KindVoiceUA is not intended to replace professional psychological support, I believe it can become a small source of comfort and emotional grounding for people during difficult moments.
 
-My project was deeply inspired by the desire to help people living in Ukraine who unfortunately have to cope with panic, fear, stress, and emotional exhaustion on a regular basis because of the war. Being Ukrainian myself, I realise how desperate the need for emotional support can be when experiencing an attack. While KindVoiceUA is not intended to replace professional psychological support, I believe it can become a small source of comfort and emotional grounding for people during difficult moments.
+I wanted to create something accessible, human, and supportive — a space where people could feel heard even when they feel alone. I also strongly believe that even if this project helps just one Ukrainian feel calmer, safer, or less isolated, then it is already deeply meaningful.
 
-I wanted to create something accessible, human, and supportive — a space where people could feel heard even when they feel alone. I also strongly believe that even if this project helps just one Ukrainian feel calmer, safer, or less isolated, then it is already meaningful.
+---
+
+## Infrastructure Note
+
+Since the bot was deployed on Render's free tier to avoid running up a massive hosting bill, the server uses a **'Scale-to-Zero' policy** - meaning if nobody uses the bot for a while, the container goes to sleep to save cloud resources. This is why the bot was built using Webhooks rather than traditional polling, the very first text you send after it’s been inactive for a while will instantly wake the server back up. 
+However, please keep in mind that the server needs about 30 to 60 seconds for this 'Start' to initialize the Python environment again. Once that first message goes through and the server is awake, all following responses will be near-instantaneous!" 
+So, if you experience a slight delay with your first interaction, your patience would be greatly appreciated while the backend initializes 😊
