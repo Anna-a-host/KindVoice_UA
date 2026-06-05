@@ -13,12 +13,21 @@ def setup_text_handler(bot):
         chat_id = message.chat.id
 
         if chat_id not in user_profiles:
-            return
+            profile = get_user_profile(chat_id)
+            if profile and profile.get("lang"):
+                user_profiles[chat_id] = {
+                    "lang": profile["lang"],
+                    "mode": profile.get("mode", "general"),
+                    "history": []
+                }
+            else:
+                bot.send_message(chat_id, "Please use /start to set your language and mode first! 🤗")
+                return
 
         profile = user_profiles[chat_id]
-
         lang = profile["lang"]
         mode = profile.get("mode", "general")
+
 
         sleep(0.7)
         bot.send_chat_action(chat_id, "typing")
