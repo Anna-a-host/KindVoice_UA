@@ -16,7 +16,7 @@ At the same time, many individuals simply need a calm, human-like presence, emot
 **KindVoice UA** is an AI-powered Telegram companion designed to provide emotionally adaptive conversations for users experiencing trauma, wartime anxiety, and emotional overwhelm. 
 
 ### Key Architectural Solutions:
-* **Multi-Provider AI Resilience:** To maximize uptime and cost-efficiency on a free tier, the backend features a robust **automatic failover system**. It prioritizes **Gemini** as the primary provider and dynamically routes traffic to **OpenRouter** or **Groq** if API quotas are exceeded or connections drop.
+* **Multi-Provider AI Resilience:** To maximize uptime and cost-efficiency on a free tier, the backend features a robust **automatic failover system**. It prioritizes **Groq** as the primary provider and dynamically routes traffic to **OpenRouter** or **Gemini** if API quotas are exceeded or connections drop.
 
 * **Multimodal Webhook Delivery:** Users can interact seamlessly via both text and voice. 
 
@@ -47,14 +47,14 @@ The system dynamically adapts its conversational behavior, empathy levels, and r
 * **Backend & Bot Framework:** PyTelegramBotAPI, Flask (Webhook Handler)
 * **Databases:** PostgreSQL (Hosted via Neon Serverless Postgres)
 * **Cloud AI Providers:** 
-  * Google Gemini API (Primary Engine)
+  * Groq Cloud API (Primary Engine & Audio Transcriptions)
+  * Google Gemini API (First Fallback)
   * OpenRouter API (Secondary Fallback)
-  * Groq Cloud API (Tertiary Fallback & Audio Transcriptions)
 * **AI Models Integrated:**
-  * `gemini-2.5-flash`
-  * `deepseek/deepseek-chat-v3-0324` (via OpenRouter)
   * `llama-3.3-70b-versatile` (via Groq)
   * `whisper-large-v3` (via Groq Audio API)
+  * `gemini-2.5-flash` (via Google Gemini API)
+  * `deepseek/deepseek-chat-v3-0324` (via OpenRouter)
 * **Deployment & Environments:** Render, Git/GitHub, VS Code
 
 ---
