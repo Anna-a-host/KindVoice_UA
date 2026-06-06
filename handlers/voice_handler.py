@@ -72,10 +72,14 @@ def setup_voice_handler(bot):
             os.remove(voice_path)
 
         except Exception as e:
+
             import traceback
-            traceback.print_exc()
+
+            error = traceback.format_exc()
+
+            print(error)
 
             bot.send_message(
                 chat_id,
-                "Sorry 💙 I couldn't process the voice message."
+                f"Voice error:\n\n{error[:4000]}"
             )
