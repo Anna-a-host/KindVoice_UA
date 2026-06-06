@@ -72,11 +72,3 @@ KindVoice UA is built with safety, privacy, and accessibility in mind for:
 My project was deeply inspired by the desire to help people living in Ukraine who unfortunately have to cope with panic, fear, stress, and emotional exhaustion on a regular basis because of the war. Being Ukrainian myself, I realize how desperate the need for emotional support can be when experiencing an attack. While KindVoiceUA is not intended to replace professional psychological support, I believe it can become a small source of comfort and emotional grounding for people during difficult moments.
 
 I wanted to create something accessible, human, and supportive — a space where people could feel heard even when they feel alone. I also strongly believe that even if this project helps just one Ukrainian feel calmer, safer, or less isolated, then it is already deeply meaningful.
-
----
-
-## Infrastructure Note
-
-Since the bot was deployed on Render's free tier to avoid running up a massive hosting bill, the server uses a **'Scale-to-Zero' policy** - meaning if nobody uses the bot for a while, the container goes to sleep to save cloud resources. This is why the bot was built using Webhooks rather than traditional polling, the very first text you send after it’s been inactive for a while will instantly wake the server back up. 
-However, please keep in mind that the server needs about 30 to 60 seconds for this 'Start' to initialize the Python environment again. Once that first message goes through and the server is awake, all following responses will be near-instantaneous!" 
-So, if you experience a slight delay with your first interaction, your patience would be greatly appreciated while the backend initializes 😊
