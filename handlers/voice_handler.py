@@ -53,6 +53,7 @@ def setup_voice_handler(bot):
             history = history[-8:]
 
             response = generate_response(
+                text,
                 history=history,
                 lang=lang,
                 mode=mode
