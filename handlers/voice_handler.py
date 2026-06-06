@@ -72,8 +72,8 @@ def setup_voice_handler(bot):
             os.remove(voice_path)
 
         except Exception as e:
-
-            print("Voice error:", e)
+            import traceback
+            traceback.print_exc()
 
             bot.send_message(
                 chat_id,
